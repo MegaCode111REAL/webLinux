@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WEB-VM CONTROL INTERFACE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/v86@0.4.2/build/v86.js"></script>
+  </head>
+  <body>
+    <canvas id="matrix"></canvas>
+    <div class="scanlines"></div>
+
+    <div class="app">
+      <header class="header">
+        <div class="title">WEB-VM CONTROL INTERFACE</div>
+        <div class="status">
+          <span>SYSTEM STATUS: ONLINE</span>
+          <span>VM HYPERVISOR: ACTIVE</span>
+          <span>SECURITY LAYER: ENABLED</span>
+          <span class="cursor">█</span>
+        </div>
+      </header>
+
+      <section class="panel">
+        <div class="panel-title">&gt; AVAILABLE SYSTEMS</div>
+        <div class="vm-grid">
+          <div class="vm-card active" data-vm="ubuntu">
+            <div class="vm-name">[1] Ubuntu Desktop (LXDE)</div>
+            <div class="vm-meta">Status: Ready</div>
+            <div class="vm-meta">Memory: 512MB</div>
+            <button class="launch" id="launchBtn">[ LAUNCH VM ]</button>
+          </div>
+          <div class="vm-card">
+            <div class="vm-name">[2] Arch Linux</div>
+            <div class="vm-meta">Status: Offline</div>
+            <div class="vm-meta">Memory: 256MB</div>
+            <div class="vm-meta">Access: Locked</div>
+          </div>
+          <div class="vm-card">
+            <div class="vm-name">[3] Alpine Linux</div>
+            <div class="vm-meta">Status: Offline</div>
+            <div class="vm-meta">Memory: 128MB</div>
+            <div class="vm-meta">Access: Locked</div>
+          </div>
+          <div class="vm-card">
+            <div class="vm-name">[4] Windows 98</div>
+            <div class="vm-meta">Status: Offline</div>
+            <div class="vm-meta">Memory: 64MB</div>
+            <div class="vm-meta">Access: Locked</div>
+          </div>
+          <div class="vm-card">
+            <div class="vm-name">[5] FreeDOS</div>
+            <div class="vm-meta">Status: Offline</div>
+            <div class="vm-meta">Memory: 32MB</div>
+            <div class="vm-meta">Access: Locked</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel log-panel">
+        <div class="panel-title">&gt; TERMINAL LOG</div>
+        <div id="log" class="log"></div>
+      </section>
+
+      <section class="panel vm-panel">
+        <div class="panel-title">VM TERMINAL</div>
+        <div class="screen-shell">
+          <div id="screen" class="screen">VM NOT STARTED</div>
+        </div>
+        <div class="controls">
+          <button class="cmd" data-action="start">&gt; start_vm</button>
+          <button class="cmd" data-action="stop">&gt; stop_vm</button>
+          <button class="cmd" data-action="reset">&gt; reset_vm</button>
+          <button class="cmd" data-action="fullscreen">&gt; fullscreen</button>
+        </div>
+      </section>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
