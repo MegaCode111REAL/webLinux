@@ -1,0 +1,250 @@
+:root {
+  --green: #00ff00;
+  --green-soft: rgba(0, 255, 0, 0.6);
+  --green-dim: rgba(0, 255, 0, 0.25);
+  --black: #000000;
+  --panel-bg: rgba(0, 0, 0, 0.75);
+  --border: rgba(0, 255, 0, 0.55);
+  --glow: 0 0 12px rgba(0, 255, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--black);
+  color: var(--green);
+  font-family: "Fira Code", "Share Tech Mono", monospace;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+#matrix {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: #000;
+}
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0,
+    rgba(0, 0, 0, 0.2) 2px,
+    rgba(0, 0, 0, 0.05) 3px,
+    rgba(0, 0, 0, 0.05) 4px
+  );
+  mix-blend-mode: screen;
+  z-index: 2;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  padding: 32px clamp(16px, 5vw, 64px) 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header {
+  border: 1px solid var(--border);
+  padding: 20px 24px;
+  background: var(--panel-bg);
+  box-shadow: var(--glow);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.title {
+  font-size: clamp(18px, 3vw, 28px);
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-shadow: 0 0 12px rgba(0, 255, 0, 0.6);
+}
+
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.cursor {
+  animation: blink 1s steps(2, start) infinite;
+}
+
+.panel {
+  border: 1px solid var(--border);
+  background: var(--panel-bg);
+  box-shadow: var(--glow);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel-title {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+}
+
+.vm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.vm-card {
+  border: 1px solid var(--border);
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 0 12px rgba(0, 255, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vm-card.active {
+  box-shadow: 0 0 16px rgba(0, 255, 0, 0.35);
+}
+
+.vm-name {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.vm-meta {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.launch {
+  margin-top: 8px;
+  background: transparent;
+  color: var(--green);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  font-family: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: var(--glow);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.launch:hover {
+  box-shadow: 0 0 18px rgba(0, 255, 0, 0.7);
+  transform: translateY(-1px);
+}
+
+.log-panel {
+  min-height: 140px;
+}
+
+.log {
+  font-size: 12px;
+  line-height: 1.5;
+  min-height: 90px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.log-line {
+  text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+}
+
+.vm-panel {
+  gap: 20px;
+}
+
+.screen-shell {
+  border: 1px solid var(--border);
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 0 18px rgba(0, 255, 0, 0.2);
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.screen {
+  width: 100%;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green-soft);
+  font-size: 14px;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+}
+
+#screen canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.cmd {
+  background: transparent;
+  color: var(--green);
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+  font-family: inherit;
+  text-transform: lowercase;
+  cursor: pointer;
+  box-shadow: inset 0 0 12px rgba(0, 255, 0, 0.2);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.cmd:hover {
+  box-shadow: 0 0 16px rgba(0, 255, 0, 0.7);
+  transform: translateY(-1px);
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .header,
+  .panel {
+    padding: 16px;
+  }
+
+  .status {
+    flex-direction: column;
+  }
+
+  .screen-shell {
+    min-height: 260px;
+  }
+}
